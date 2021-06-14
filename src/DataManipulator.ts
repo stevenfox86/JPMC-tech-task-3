@@ -20,9 +20,20 @@ export class DataManipulator {
     const priceABC = (serverResponds[0].top_ask.price + serverResponds[0].top_bid.price) /2;
     const priceDEF = (serverResponds[1].top_ask.price + serverResponds[1].top_bid.price) /2;
     const ratio = priceABC / priceDEF;
+    // This will never cause a trigger_alert since you are always above or below the ratio of stock_ABC/ stock_DEF by .01
+    // const upperBound = ratio + 0.01;
+    // const lowerBound = ratio - 0.01;
+    
+    // This will cause too many trigger alerts since the thresholds are too sensitive.
+    // const upperBound = 1 + 0.01;
+    // const lowerBound = 1 - 0.01;
+
+    // This will cause too few trigger alerts since the thresholds are too broad. 
+    // const upperBound = 1 + 0.1;
+    // const lowerBound = 1 - 0.1;
+
     const upperBound = 1 + 0.05;
     const lowerBound = 1 - 0.05;
-
     return {
       price_abc: priceABC,
       price_def: priceDEF,
